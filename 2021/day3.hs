@@ -6,10 +6,10 @@ main = do
     input <- fmap lines (readFile "input3.txt")
     let gamma = mostCommonBits input
     let epsilon = map flipBit gamma
-    let oxygenRating = oxygenGenerator 0 input
-    let co2Scrubber = co2Rating 0 input
+    let oxygenRating = partTwo 0 input True
+    let co2Rating = partTwo 0 input False
     print (binToDec gamma * binToDec epsilon)
-    print (binToDec oxygenRating * binToDec co2Scrubber)
+    print (binToDec oxygenRating * binToDec co2Rating)
 
 binToDec :: String -> Int
 binToDec = foldl' (\acc x -> acc * 2 + digitToInt x) 0
@@ -20,21 +20,18 @@ flipBit '0' = '1'
 flipBit _ = undefined
 
 mostCommonBits :: [String] -> [Char]
-mostCommonBits bs = [mostCommon (map (!! y) bs) | y <- [0..l-1]]
+mostCommonBits bs = [mostCommon (map (!! y) bs) | y <- [0..l]]
   where
-    l = length (head bs)
+    l = length (head bs) - 1
 
 mostCommon :: Ord a => [a] -> a
 mostCommon = snd . maximum . map (\xs -> (length xs, head xs)) . group . sort
 
-oxygenGenerator :: Int -> [String] -> String
-oxygenGenerator _ [b] = b
-oxygenGenerator n bs = oxygenGenerator (n + 1) bs'
-  where
-    bs' = filter (\x -> x !! n == mostCommon (map (!! n) bs)) bs
-
-co2Rating :: Int -> [String] -> String
-co2Rating _ [b] = b
-co2Rating n bs = co2Rating (n + 1) bs'
-  where
-    bs' = filter (\x -> flipBit (x !! n) == mostCommon (map (!! n) bs)) bs
+partTwo :: Int -> [String] -> Bool -> String
+partTwo _ [b] _ = b
+partTwo n bs shouldMatchMost
+    | shouldMatchMost = partTwo (n + 1) most shouldMatchMost
+    | otherwise = partTwo (n + 1) least shouldMatchMost
+      where
+        most = filter (\x -> x !! n == mostCommon (map (!! n) bs)) bs
+        least = filter (\x -> flipBit (x !! n) == mostCommon (map (!! n) bs)) bs
