@@ -6,7 +6,13 @@ type Marked = Int
 data Cell = Cell
     { val :: Int
     , m :: Marked
-    } deriving (Show, Eq, Ord)
+    } deriving (Show)
+
+instance Eq Cell where
+    (Cell _ x) == (Cell _ y) = x == y
+
+instance Ord Cell where
+    (Cell _ x) `compare` (Cell _ y) = x `compare` y
 
 main :: IO ()
 main = do
@@ -16,8 +22,9 @@ main = do
     let values = concatMap words (tail usable)
     let boards = splitEvery 25 (map (\x -> Cell (read x :: Int) 0) values)
     let marked = map (markAll 0 moves) boards
-    let win = winner marked
-    print (score win)
+    let ranks = winOrder marked
+    print (score (head ranks))
+    print (score (last ranks))
 
 replace :: Char -> Char
 replace ',' = ' '
@@ -39,33 +46,31 @@ markAll n ms cs = markAll (n + 1) (tail ms) cs'
     cs' = map (\x -> if val x == ms' then Cell (val x) n else x) cs
     ms' = head ms
 
-winner :: [[Cell]] -> (Cell,[Cell])
-winner cs = (wCell,wBoard)
+winOrder :: [[Cell]] -> [(Cell,[Cell])]
+winOrder cs = sort (zip wCell cs)
   where
-    wCell = minimumBy compareCell (map minRowPerBoard cs ++ map minColPerBoard cs)
-    wBoard = head (filter isOriginalBoard cs)
-      where
-        isOriginalBoard :: [Cell] -> Bool
-        isOriginalBoard b
-            | wCell == minRowPerBoard b || wCell == minColPerBoard b = True
-            | otherwise = False
+    wCell = zipWith smallerTuple (map minRowPerBoard cs) (map minColPerBoard cs)
+    smallerTuple c1 c2
+        | y > x = c1
+        | otherwise = c2
+          where
+            x = m c1
+            y = m c2
 
 minRowPerBoard :: [Cell] -> Cell
-minRowPerBoard cs = minimumBy compareCell (maxRows cs)
+minRowPerBoard cs = minimum (maxRows cs)
 
 maxRows :: [Cell] -> [Cell]
-maxRows c = map (maximumBy compareCell) (rows c)
+maxRows c = map maximum (rows c)
 
 rows :: [Cell] -> [[Cell]]
 rows = splitEvery 5
 
 minColPerBoard :: [Cell] -> Cell
-minColPerBoard cs = minimumBy compareCell (maxColumns cs)
+minColPerBoard cs = minimum (maxColumns cs)
 
 maxColumns :: [Cell] -> [Cell]
-maxColumns c = map (maximumBy compareCell) (columns c)
+maxColumns c = map maximum (columns c)
 
 columns :: [Cell] -> [[Cell]]
 columns = transpose . rows
-
-compareCell = compare `on` m
