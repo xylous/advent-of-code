@@ -6,7 +6,7 @@ data Triangle = Triangle
 
 main :: IO ()
 main = do
-    input <- readFile "input3.txt"
+    input <- readFile "input03.txt"
     let ints = map read (words input) :: [Int]
     let triangles1 = map triangle (group 3 ints)
     let triangles2 = map triangle (groupVertically ints)

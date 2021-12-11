@@ -2,7 +2,7 @@ import Data.List
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input6.txt")
+    input <- fmap lines (readFile "input06.txt")
     let l = length (head input) - 1
     let partOneCharacters = [mostCommon (map (!! n) input) | n <- [0..l]]
     let partTwoCharacters = [leastCommon (map (!! n) input) | n <- [0..l]]

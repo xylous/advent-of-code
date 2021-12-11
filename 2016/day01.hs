@@ -27,7 +27,7 @@ instance Eq Location where
 
 main :: IO ()
 main = do
-    input <- fmap (words . filter (/= ',')) (readFile "input1.txt")
+    input <- fmap (words . filter (/= ',')) (readFile "input01.txt")
     let steps = map strToStep input
     let l = Location 0 0 North
     let destination = moveAll l steps

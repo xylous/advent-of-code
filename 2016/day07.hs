@@ -2,7 +2,7 @@ data IPV7 = IPV7 String String deriving Show
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input7.txt")
+    input <- fmap lines (readFile "input07.txt")
     let ips = map parseIPV7 input
     let haveTLS = filter supportsTLS ips
     let haveSSL = filter supportsSSL ips

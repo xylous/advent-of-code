@@ -12,7 +12,7 @@ roomName (Room n _ _) = n
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input4.txt")
+    input <- fmap lines (readFile "input04.txt")
     let rooms = map parseRoom input
     let valids = filter validRoom rooms
     let decrypted = map decryptRoomName valids

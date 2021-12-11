@@ -11,7 +11,7 @@ data Key = One | Two | Three | Four | Five | Six | Seven | Eight | Nine | A | B 
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input2.txt")
+    input <- fmap lines (readFile "input02.txt")
     let instructions = map parseInstructions input
     let resultPartOne = mapAccumL (\a b -> (computeDigit a b, computeDigit a b)) (toEnum 4) instructions
     let resultPartTwo = mapAccumL (\a b -> (revisedComputeDigit a b, revisedComputeDigit a b)) (toEnum 4) instructions
