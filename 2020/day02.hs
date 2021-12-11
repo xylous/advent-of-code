@@ -9,7 +9,7 @@ data Entry = Entry
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input2.txt")
+    input <- fmap lines (readFile "input02.txt")
     let parsed = map (parseEntry . words) input
     print (solvePartOne parsed)
     print (solvePartTwo parsed)

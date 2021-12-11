@@ -1,6 +1,6 @@
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input1.txt")
+    input <- fmap lines (readFile "input01.txt")
     let masses = map read input :: [Int]
     let partOne = sum (map fuel masses)
     let partTwo = sum (map revisedFuel masses)

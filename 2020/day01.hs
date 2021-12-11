@@ -1,6 +1,6 @@
 main :: IO()
 main = do
-    input <- fmap lines (readFile "input1.txt")
+    input <- fmap lines (readFile "input01.txt")
     let numbers = map read input :: [Int]
     print (solve1 numbers)
     print (solve2 numbers)
