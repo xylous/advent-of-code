@@ -5,7 +5,7 @@ data Display = Display
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input8.txt")
+    input <- fmap lines (readFile "input08.txt")
     let notes = map parseDisplay input
     print (sum (map uniqueDigitsInOutput notes))
 

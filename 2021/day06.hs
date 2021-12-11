@@ -5,7 +5,7 @@ data Fish = Fish
 
 main :: IO ()
 main = do
-    input <- fmap (map read . words . map replace) (readFile "input6.txt") :: IO [Int]
+    input <- fmap (map read . words . map replace) (readFile "input06.txt") :: IO [Int]
     let fishes = parseFish input
     let partOneFishes = finalState 80 0 fishes
     let partTwoFishes = finalState 256 0 fishes

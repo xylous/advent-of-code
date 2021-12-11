@@ -2,7 +2,7 @@ import Data.List
 
 main :: IO ()
 main = do
-    input <- fmap (map read . wordsWhen (==',')) (readFile "input7.txt") :: IO [Int]
+    input <- fmap (map read . wordsWhen (==',')) (readFile "input07.txt") :: IO [Int]
     print (sum (map (\x -> abs (median input - x)) input))
     print (minimum [sum ([gaussSum (abs (x - y)) | y <- input]) | x <- [0..(maximum input)]])
 

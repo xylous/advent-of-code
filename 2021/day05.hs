@@ -10,7 +10,7 @@ data Cloud = Cloud Point Point
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input5.txt")
+    input <- fmap lines (readFile "input05.txt")
     let clouds = map parseCloud input
     let horizontalLines = map (allPointsInCloud False) clouds
     let withDiagonals = map (allPointsInCloud True) clouds

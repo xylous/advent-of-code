@@ -3,7 +3,7 @@ import Data.Char (digitToInt)
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input3.txt")
+    input <- fmap lines (readFile "input03.txt")
     let gamma = mostCommonBits input
     let epsilon = map flipBit gamma
     let oxygenRating = partTwo 0 input True

@@ -11,7 +11,7 @@ data Position = Position Int Int Int
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input2.txt")
+    input <- fmap lines (readFile "input02.txt")
     let cmds = map (parseCommand . words) input
     let partOne = moveAll (Position 0 0 0) cmds
     let partTwo = revisedMoveAll (Position 0 0 0) cmds

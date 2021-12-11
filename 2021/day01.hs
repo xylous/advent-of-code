@@ -1,6 +1,6 @@
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input1.txt")
+    input <- fmap lines (readFile "input01.txt")
     let ints = map read input :: [Int]
     let subdivided = chunk 3 ints
     print (solve ints)

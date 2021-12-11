@@ -9,7 +9,7 @@ data Point = Point
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input9.txt")
+    input <- fmap lines (readFile "input09.txt")
     let points = concat (snd (mapAccumL (\x y -> (x+1,parsePoints 0 x y)) 0 input))
     let nonZeroes = filter (\x -> val x /= 0) points  -- zeroes are always the lowest value
     let lowPoints = filter (\x -> isLowPoint x (neighbours x points)) nonZeroes

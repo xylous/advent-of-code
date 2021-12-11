@@ -16,7 +16,7 @@ instance Ord Cell where
 
 main :: IO ()
 main = do
-    input <- fmap lines (readFile "input4.txt")
+    input <- fmap lines (readFile "input04.txt")
     let usable = filter (/= "") input
     let moves = map read (words (map replace (head usable))) :: [Int]
     let values = concatMap words (tail usable)
